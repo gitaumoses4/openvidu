@@ -570,9 +570,6 @@ public class OpenviduConfig {
 		if (domain != null && !domain.isEmpty()) {
 			this.domainOrPublicIp = domain;
 			this.openviduPublicUrl = prefix + domain;
-			if (this.httpsPort != null && this.httpsPort != 443) {
-				this.openviduPublicUrl += (":" + this.httpsPort);
-			}
 			calculatePublicUrl();
 		} else {
 			addError(property, "Cannot be empty");
@@ -621,7 +618,7 @@ public class OpenviduConfig {
 		if (publicUrl.startsWith("https://")) {
 			OpenViduServer.wsUrl = publicUrl.replace("https://", "wss://");
 		} else if (publicUrl.startsWith("http://")) {
-			OpenViduServer.wsUrl = publicUrl.replace("http://", "ws://");
+			OpenViduServer.wsUrl = publicUrl.replace("http://", "wss://");
 		}
 		if (OpenViduServer.wsUrl.endsWith("/")) {
 			OpenViduServer.wsUrl = OpenViduServer.wsUrl.substring(0, OpenViduServer.wsUrl.length() - 1);
